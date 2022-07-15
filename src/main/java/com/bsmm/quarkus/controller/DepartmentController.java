@@ -2,7 +2,7 @@ package com.bsmm.quarkus.controller;
 
 
 import com.bsmm.quarkus.domain.dto.DepartmentDto;
-import com.bsmm.quarkus.service.DepartmentService;
+import com.bsmm.quarkus.service.impl.DepartmentServiceImpl;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -15,7 +15,7 @@ import java.util.List;
 public class DepartmentController {
 
     @Inject
-    DepartmentService departmentService;
+    DepartmentServiceImpl departmentService;
 
 
     @GET

@@ -1,6 +1,5 @@
-# quarkus-crud-example Project
+# CRUD Project
 
-https://fullstackcode.dev/2022/03/07/quarkus-rest-api-crud-example/
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 

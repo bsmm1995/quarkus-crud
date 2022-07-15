@@ -3,7 +3,7 @@ package com.bsmm.quarkus.controller;
 
 import com.bsmm.quarkus.domain.dto.EmployeeDto;
 import com.bsmm.quarkus.domain.entity.DepartmentEntity;
-import com.bsmm.quarkus.service.EmployeeService;
+import com.bsmm.quarkus.service.impl.EmployeeServiceImpl;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -18,7 +18,7 @@ public class EmployeeController {
 
 
     @Inject
-    EmployeeService empService;
+    EmployeeServiceImpl empService;
 
 
     @GET

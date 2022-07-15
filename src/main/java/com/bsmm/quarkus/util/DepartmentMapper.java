@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 public class DepartmentMapper {
     private static final ModelMapper MAPPER = new ModelMapper();
 
+    private DepartmentMapper() {
+    }
+
     public static DepartmentEntity toEntity(DepartmentDto dto) {
         return MAPPER.map(dto, DepartmentEntity.class);
     }

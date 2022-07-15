@@ -10,6 +10,9 @@ import java.util.stream.Collectors;
 public class EmployeeMapper {
     private static final ModelMapper MAPPER = new ModelMapper();
 
+    private EmployeeMapper() {
+    }
+
     public static EmployeeEntity toEntity(EmployeeDto dto) {
         return MAPPER.map(dto, EmployeeEntity.class);
     }
