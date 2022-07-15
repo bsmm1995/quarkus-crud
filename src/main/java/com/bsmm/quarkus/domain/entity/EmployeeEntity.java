@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -16,11 +17,18 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "EMPLOYEE")
 public class EmployeeEntity extends PanacheEntity {
-
+    @Column(name = "first_name")
     public String firstName;
+
+    @Column(name = "last_name")
     public String lastName;
+
     public String gender;
+
+    @Column(name = "birth_date")
     public LocalDate birthDate;
+
+    @Column(name = "hire_date")
     public LocalDate hireDate;
 
     @ManyToOne(fetch = FetchType.LAZY)

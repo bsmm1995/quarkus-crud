@@ -1,6 +1,7 @@
 package com.bsmm.quarkus.domain.dto;
 
 
+import com.bsmm.quarkus.domain.dto.outs.EmployeeOutDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,5 @@ import java.util.List;
 public class DepartmentDto implements Serializable {
     private Long id;
     private String name;
-    public List<EmployeeDto> employees = new ArrayList<>();
+    public List<EmployeeOutDto> employees = new ArrayList<>();
 }

@@ -1,6 +1,7 @@
 package com.bsmm.quarkus.domain.dto;
 
 
+import com.bsmm.quarkus.domain.dto.outs.DepartmentOutDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,5 @@ public class EmployeeDto {
     private String gender;
     private LocalDate birthDate;
     private LocalDate hireDate;
-    public DepartmentDto department;
+    public DepartmentOutDto department;
 }
