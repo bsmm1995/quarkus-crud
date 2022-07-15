@@ -12,7 +12,6 @@ import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,28 +19,28 @@ import java.util.Optional;
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
-    public EmployeeDto getEmployee(Long id) {
+    public EmployeeDto getById(Long id) {
         return EmployeeMapper.toDto(EmployeeEntity.findById(id));
     }
 
     @Override
-    public List<EmployeeDto> getAllEmployees() {
-        return EmployeeMapper.toDtos(EmployeeEntity.findAll().list());
-    }
-
-    @Override
-    public List<EmployeeDto> getEmployeesByDepartment(Long deptId) {
+    public List<EmployeeDto> getByDepartmentId(Long deptId) {
         return EmployeeMapper.toDtos(EmployeeEntity.findEmployeesByDepartmentId(deptId));
     }
 
     @Override
-    public List<EmployeeDto> searchEmpsByName(String name) {
+    public List<EmployeeDto> getByName(String name) {
         return EmployeeMapper.toDtos(EmployeeEntity.searchEmpsByName(name));
     }
 
     @Override
+    public List<EmployeeDto> getAll() {
+        return EmployeeMapper.toDtos(EmployeeEntity.findAll().list());
+    }
+
+    @Override
     @Transactional
-    public EmployeeDto createEmployee(EmployeeDto employee) {
+    public EmployeeDto create(EmployeeDto employee) {
         EmployeeEntity entity = EmployeeMapper.toEntity(employee);
         EmployeeEntity.persist(entity);
         entity.persistAndFlush();
@@ -57,7 +56,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public EmployeeDto updateEmployee(Long id, EmployeeDto employee) {
+    public EmployeeDto update(Long id, EmployeeDto employee) {
         EmployeeEntity entity = EmployeeEntity.findById(id);
         if (entity == null) {
             throw new WebApplicationException("Employee with id of " + id + " does not exist.", 404);
@@ -67,29 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public EmployeeDto updateEmployee(EmployeeDto employee) {
-        EmployeeEntity entity = EmployeeEntity.findById(employee.getId());
-        if (entity == null) {
-            throw new WebApplicationException("Employee with id " + employee.getId() + " does not exist.", 404);
-        }
-        entity = EmployeeEntity.getEntityManager().merge(entity);
-        return EmployeeMapper.toDto(entity);
-    }
-
-    @Override
-    @Transactional
-    public EmployeeDto updateEmpDepartment(Long empId, DepartmentEntity department) {
-        EmployeeEntity entity = EmployeeEntity.findById(empId);
-        if (entity == null) {
-            throw new WebApplicationException("Employee with id " + empId + " does not exist.", 404);
-        }
-        entity.department = department;
-        return EmployeeMapper.toDto(entity);
-    }
-
-    @Override
-    @Transactional
-    public EmployeeDto updateEmpDepartment(Long empId, Long deptId) {
+    public EmployeeDto updateDepartment(Long empId, Long deptId) {
         EmployeeEntity entity = EmployeeEntity.findById(empId);
         if (entity == null) {
             throw new WebApplicationException("Employee with id " + empId + " does not exist.", 404);
@@ -101,11 +78,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
-    public Response deleteEmployee(Long id) {
+    public long deleteById(Long id) {
         boolean isEntityDeleted = EmployeeEntity.deleteById(id);
         if (!isEntityDeleted) {
             throw new WebApplicationException("Employee with id of " + id + " does not exist.", 404);
         }
-        return Response.status(204).build();
+        return id;
     }
 }

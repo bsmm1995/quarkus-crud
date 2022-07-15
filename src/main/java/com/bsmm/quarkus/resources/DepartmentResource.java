@@ -1,4 +1,4 @@
-package com.bsmm.quarkus.controller;
+package com.bsmm.quarkus.resources;
 
 
 import com.bsmm.quarkus.domain.dto.DepartmentDto;
@@ -12,26 +12,24 @@ import java.util.List;
 @Path("/departments")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class DepartmentController {
+public class DepartmentResource {
 
     @Inject
     DepartmentServiceImpl departmentService;
 
-
     @GET
     @Path("/{id}")
-    public DepartmentDto getDepartment(@PathParam(value = "id") Long id) {
-        return departmentService.getDepartment(id);
+    public DepartmentDto getById(@PathParam(value = "id") Long id) {
+        return departmentService.getById(id);
     }
 
     @GET
-    public List<DepartmentDto> getAllDepartments() {
-        return departmentService.getAllDepartments();
+    public List<DepartmentDto> getAll() {
+        return departmentService.getAll();
     }
 
     @POST
-    public DepartmentDto createEmployee(DepartmentDto department) {
-        return departmentService.createDepartment(department);
+    public DepartmentDto create(DepartmentDto department) {
+        return departmentService.create(department);
     }
-
 }

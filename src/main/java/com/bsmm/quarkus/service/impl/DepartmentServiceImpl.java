@@ -16,20 +16,20 @@ import java.util.Optional;
 @Singleton
 public class DepartmentServiceImpl implements DepartmentService {
     @Override
-    public DepartmentDto getDepartment(Long id) {
+    public DepartmentDto getById(Long id) {
         Optional<DepartmentEntity> optionalDepartment = DepartmentEntity.findByIdOptional(id);
         DepartmentEntity department = optionalDepartment.orElseThrow(NotFoundException::new);
         return DepartmentMapper.toDto(department);
     }
 
     @Override
-    public List<DepartmentDto> getAllDepartments() {
+    public List<DepartmentDto> getAll() {
         return DepartmentMapper.toDtos(DepartmentEntity.listAll());
     }
 
     @Override
     @Transactional
-    public DepartmentDto createDepartment(DepartmentDto department) {
+    public DepartmentDto create(DepartmentDto department) {
 
         DepartmentEntity entity = DepartmentMapper.toEntity(department);
         DepartmentEntity.persist(entity);

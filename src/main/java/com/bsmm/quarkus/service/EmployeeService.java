@@ -1,30 +1,24 @@
 package com.bsmm.quarkus.service;
 
 import com.bsmm.quarkus.domain.dto.EmployeeDto;
-import com.bsmm.quarkus.domain.entity.DepartmentEntity;
 
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 public interface EmployeeService {
 
-    EmployeeDto getEmployee(Long id);
+    EmployeeDto getById(Long id);
 
-    List<EmployeeDto> getAllEmployees();
+    List<EmployeeDto> getByDepartmentId(Long deptId);
 
-    List<EmployeeDto> getEmployeesByDepartment(Long deptId);
+    List<EmployeeDto> getByName(String name);
 
-    List<EmployeeDto> searchEmpsByName(String name);
+    List<EmployeeDto> getAll();
 
-    EmployeeDto createEmployee(EmployeeDto employee);
+    EmployeeDto create(EmployeeDto employee);
 
-    EmployeeDto updateEmployee(Long id, EmployeeDto employee);
+    EmployeeDto update(Long id, EmployeeDto employee);
 
-    EmployeeDto updateEmployee(EmployeeDto employee);
+    EmployeeDto updateDepartment(Long empId, Long deptId);
 
-    EmployeeDto updateEmpDepartment(Long empId, DepartmentEntity department);
-
-    EmployeeDto updateEmpDepartment(Long empId, Long deptId);
-
-    Response deleteEmployee(Long id);
+    long deleteById(Long id);
 }

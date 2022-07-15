@@ -5,9 +5,9 @@ import com.bsmm.quarkus.domain.dto.DepartmentDto;
 import java.util.List;
 
 public interface DepartmentService {
-    DepartmentDto getDepartment(Long id);
+    DepartmentDto getById(Long id);
 
-    List<DepartmentDto> getAllDepartments();
+    List<DepartmentDto> getAll();
 
-    DepartmentDto createDepartment(DepartmentDto department);
+    DepartmentDto create(DepartmentDto department);
 }
