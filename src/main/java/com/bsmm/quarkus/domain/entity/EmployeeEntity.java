@@ -17,11 +17,11 @@ import java.util.List;
 @Entity(name = "EMPLOYEE")
 public class EmployeeEntity extends PanacheEntity {
 
-    public String first_name;
-    public String last_name;
+    public String firstName;
+    public String lastName;
     public String gender;
-    public LocalDate birth_date;
-    public LocalDate hire_date;
+    public LocalDate birthDate;
+    public LocalDate hireDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     public DepartmentEntity department;

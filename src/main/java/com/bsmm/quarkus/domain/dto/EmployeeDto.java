@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class EmployeeDto {
     private Long id;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String gender;
-    private LocalDate birth_date;
-    private LocalDate hire_date;
+    private LocalDate birthDate;
+    private LocalDate hireDate;
     public DepartmentDto department;
 }

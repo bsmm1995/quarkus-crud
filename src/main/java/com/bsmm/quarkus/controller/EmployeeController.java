@@ -61,7 +61,7 @@ public class EmployeeController {
     @Path("/{id}")
     public EmployeeDto updateEmployee(@PathParam(value = "id") Long id, EmployeeDto employee) {
 
-        if (employee.getFirst_name() == null || employee.getLast_name() == null) {
+        if (employee.getFirstName() == null || employee.getLastName() == null) {
             throw new WebApplicationException("first_name or last_name was not set on request.", 422);
         }
         return empService.updateEmployee(id, employee);
@@ -70,7 +70,7 @@ public class EmployeeController {
     @PUT
     public EmployeeDto updateEmployee(EmployeeDto employee) {
 
-        if (employee.getFirst_name() == null || employee.getLast_name() == null) {
+        if (employee.getFirstName() == null || employee.getLastName() == null) {
             throw new WebApplicationException("first_name or last_name was not set on request.", 422);
         }
         return empService.updateEmployee(employee);
