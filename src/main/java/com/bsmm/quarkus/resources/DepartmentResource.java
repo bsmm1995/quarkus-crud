@@ -32,4 +32,11 @@ public class DepartmentResource {
     public DepartmentDto create(DepartmentDto department) {
         return departmentService.create(department);
     }
+
+    @DELETE
+    @Path("/{id}")
+    public Long delete(@PathParam(value = "id") Long id) {
+        return departmentService.deleteById(id);
+    }
+
 }

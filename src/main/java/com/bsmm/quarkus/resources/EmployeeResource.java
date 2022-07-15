@@ -41,19 +41,19 @@ public class EmployeeResource {
     }
 
     @POST
-    public EmployeeDto createEmployee(EmployeeDto employee) {
+    public EmployeeDto create(EmployeeDto employee) {
         return empService.create(employee);
     }
 
     @PUT
     @Path("/{id}")
-    public EmployeeDto updateEmployee(@PathParam(value = "id") Long id, EmployeeDto employee) {
+    public EmployeeDto update(@PathParam(value = "id") Long id, EmployeeDto employee) {
         return empService.update(id, employee);
     }
 
     @PATCH
     @Path("/{id}/department/{departmentId}")
-    public EmployeeDto updateEmpDepartment(@PathParam(value = "id") Long id, @PathParam(value = "departmentId") Long departmentId) {
+    public EmployeeDto updateDepartment(@PathParam(value = "id") Long id, @PathParam(value = "departmentId") Long departmentId) {
         return empService.updateDepartment(id, departmentId);
     }
 

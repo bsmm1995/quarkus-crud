@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    EmployeeDto getById(Long id);
+    EmployeeDto getById(long id);
 
-    List<EmployeeDto> getByDepartmentId(Long deptId);
+    List<EmployeeDto> getByDepartmentId(long deptId);
 
     List<EmployeeDto> getByName(String name);
 
@@ -16,9 +16,9 @@ public interface EmployeeService {
 
     EmployeeDto create(EmployeeDto employee);
 
-    EmployeeDto update(Long id, EmployeeDto employee);
+    EmployeeDto update(long id, EmployeeDto employee);
 
-    EmployeeDto updateDepartment(Long empId, Long deptId);
+    EmployeeDto updateDepartment(long empId, long deptId);
 
-    long deleteById(Long id);
+    long deleteById(long id);
 }

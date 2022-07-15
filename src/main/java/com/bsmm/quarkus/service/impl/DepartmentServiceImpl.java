@@ -10,16 +10,15 @@ import javax.inject.Singleton;
 import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
 import java.util.List;
 import java.util.Optional;
 
 @Singleton
 public class DepartmentServiceImpl implements DepartmentService {
     @Override
-    public DepartmentDto getById(Long id) {
-        Optional<DepartmentEntity> optionalDepartment = DepartmentEntity.findByIdOptional(id);
-        DepartmentEntity department = optionalDepartment.orElseThrow(NotFoundException::new);
-        return DepartmentMapper.toDto(department);
+    public DepartmentDto getById(long id) {
+        return DepartmentMapper.toDto(getEntityById(id));
     }
 
     @Override
@@ -30,7 +29,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     @Transactional
     public DepartmentDto create(DepartmentDto department) {
-
         DepartmentEntity entity = DepartmentMapper.toEntity(department);
         DepartmentEntity.persist(entity);
 
@@ -41,5 +39,26 @@ public class DepartmentServiceImpl implements DepartmentService {
         } else {
             throw new PersistenceException();
         }
+    }
+
+    @Override
+    public long deleteById(long id) {
+        boolean isEntityDeleted = DepartmentEntity.deleteById(id);
+        if (!isEntityDeleted) {
+            webApplicationException(id);
+        }
+        return id;
+    }
+
+    private DepartmentEntity getEntityById(long id) {
+        Optional<DepartmentEntity> optional = DepartmentEntity.findByIdOptional(id);
+        if (optional.isEmpty()) {
+            webApplicationException(id);
+        }
+        return optional.get();
+    }
+
+    private void webApplicationException(long id) {
+        throw new WebApplicationException("Department with id of " + id + " does not exist.", 404);
     }
 }
