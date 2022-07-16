@@ -9,6 +9,8 @@ import com.bsmm.quarkus.util.DepartmentMapper;
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +61,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     private void webApplicationException(long id) {
-        throw new WebApplicationException("Department with id of " + id + " does not exist.", 404);
+        throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).type(MediaType.APPLICATION_JSON).entity("Department with id of " + id + " does not exist.").build());
     }
 }
