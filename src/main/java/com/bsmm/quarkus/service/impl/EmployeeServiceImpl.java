@@ -55,8 +55,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public EmployeeDto update(long id, EmployeeDto employee) {
         EmployeeEntity entity = getEntityById(id);
-        entity.lastName = employee.getLastName();
-        entity.firstName = employee.getFirstName();
+        entity.setLastName(employee.getLastName());
+        entity.setFirstName(employee.getFirstName());
         DepartmentEntity.persist(entity);
         return EmployeeMapper.toDto(entity);
     }
@@ -67,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity entity = getEntityById(id);
         Optional<DepartmentEntity> department = DepartmentEntity.findByIdOptional(deptId);
         department.ifPresent(departmentEntity -> {
-            entity.department = departmentEntity;
+            entity.setDepartment(departmentEntity);
             DepartmentEntity.persist(entity);
         });
         return EmployeeMapper.toDto(entity);

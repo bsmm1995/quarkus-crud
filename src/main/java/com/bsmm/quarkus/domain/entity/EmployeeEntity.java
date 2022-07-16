@@ -1,6 +1,8 @@
 package com.bsmm.quarkus.domain.entity;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,23 +12,25 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "EMPLOYEE")
+@Getter
+@Setter
 public class EmployeeEntity extends PanacheEntity {
     @Column(name = "first_name")
-    public String firstName;
+    private String firstName;
 
     @Column(name = "last_name")
-    public String lastName;
+    private String lastName;
 
-    public String gender;
+    private String gender;
 
     @Column(name = "birth_date")
-    public LocalDate birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "hire_date")
-    public LocalDate hireDate;
+    private LocalDate hireDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    public DepartmentEntity department;
+    private DepartmentEntity department;
 
     public static List<EmployeeEntity> findEmployeesByDepartmentId(Long departmentId) {
         return find("department.id", departmentId).list();

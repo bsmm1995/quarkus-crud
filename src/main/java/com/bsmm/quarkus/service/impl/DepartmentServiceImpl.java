@@ -36,7 +36,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional
     public DepartmentDto update(long id, DepartmentDto department) {
         DepartmentEntity entity = getEntityById(id);
-        entity.name = department.getName();
+        entity.setName(department.getName());
         DepartmentEntity.persist(entity);
         return DepartmentMapper.toDto(entity);
     }

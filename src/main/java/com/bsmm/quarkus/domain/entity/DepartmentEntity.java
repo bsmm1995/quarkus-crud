@@ -2,6 +2,8 @@ package com.bsmm.quarkus.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,13 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "DEPARTMENT")
+@Getter
+@Setter
 public class DepartmentEntity extends PanacheEntity {
-    public String name;
+    private String name;
     @OneToMany(
             mappedBy = "department",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     @JsonIgnore
-    public List<EmployeeEntity> employees = new ArrayList<>();
+    private List<EmployeeEntity> employees = new ArrayList<>();
 }
