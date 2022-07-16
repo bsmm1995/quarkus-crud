@@ -33,6 +33,12 @@ public class DepartmentResource {
         return departmentService.create(department);
     }
 
+    @PUT
+    @Path("/{id}")
+    public DepartmentDto update(@PathParam(value = "id") Long id, DepartmentDto department) {
+        return departmentService.update(id, department);
+    }
+
     @DELETE
     @Path("/{id}")
     public Long delete(@PathParam(value = "id") Long id) {

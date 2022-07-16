@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @Entity(name = "DEPARTMENT")
 public class DepartmentEntity extends PanacheEntity {
-
     public String name;
     @OneToMany(
             mappedBy = "department",
