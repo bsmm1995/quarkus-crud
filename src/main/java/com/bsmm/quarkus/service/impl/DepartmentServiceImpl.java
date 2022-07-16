@@ -5,7 +5,6 @@ import com.bsmm.quarkus.domain.dto.DepartmentDto;
 import com.bsmm.quarkus.domain.entity.DepartmentEntity;
 import com.bsmm.quarkus.service.DepartmentService;
 import com.bsmm.quarkus.util.DepartmentMapper;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.inject.Singleton;
 import javax.transaction.Transactional;
@@ -22,14 +21,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<DepartmentDto> getAll() {
-        return DepartmentMapper.toDtos(PanacheEntityBase.listAll());
+        return DepartmentMapper.toDtos(DepartmentEntity.listAll());
     }
 
     @Override
     @Transactional
     public DepartmentDto create(DepartmentDto department) {
         DepartmentEntity entity = DepartmentMapper.toEntity(department);
-        PanacheEntityBase.persist(entity);
+        DepartmentEntity.persist(entity);
         return DepartmentMapper.toDto(entity);
     }
 
@@ -37,22 +36,22 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Transactional
     public DepartmentDto update(long id, DepartmentDto department) {
         DepartmentEntity entity = getEntityById(id);
-        entity.setName(department.getName());
-        PanacheEntityBase.persist(entity);
+        entity.name = department.getName();
+        DepartmentEntity.persist(entity);
         return DepartmentMapper.toDto(entity);
     }
 
     @Override
     @Transactional
     public long deleteById(long id) {
-        if (!PanacheEntityBase.deleteById(id)) {
+        if (!DepartmentEntity.deleteById(id)) {
             webApplicationException(id);
         }
         return id;
     }
 
     private DepartmentEntity getEntityById(long id) {
-        Optional<DepartmentEntity> optional = PanacheEntityBase.findByIdOptional(id);
+        Optional<DepartmentEntity> optional = DepartmentEntity.findByIdOptional(id);
         if (optional.isEmpty()) {
             webApplicationException(id);
         }

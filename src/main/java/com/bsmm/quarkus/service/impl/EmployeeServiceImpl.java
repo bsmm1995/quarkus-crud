@@ -6,7 +6,6 @@ import com.bsmm.quarkus.domain.entity.DepartmentEntity;
 import com.bsmm.quarkus.domain.entity.EmployeeEntity;
 import com.bsmm.quarkus.service.EmployeeService;
 import com.bsmm.quarkus.util.EmployeeMapper;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.inject.Singleton;
 import javax.persistence.PersistenceException;
@@ -35,14 +34,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<EmployeeDto> getAll() {
-        return EmployeeMapper.toDtos(PanacheEntityBase.findAll().list());
+        return EmployeeMapper.toDtos(EmployeeEntity.findAll().list());
     }
 
     @Override
     @Transactional
     public EmployeeDto create(EmployeeDto employee) {
         EmployeeEntity entity = EmployeeMapper.toEntity(employee);
-        PanacheEntityBase.persist(entity);
+        DepartmentEntity.persist(entity);
         entity.persistAndFlush();
         if (entity.isPersistent()) {
             entity = getEntityById(entity.id);
@@ -56,9 +55,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public EmployeeDto update(long id, EmployeeDto employee) {
         EmployeeEntity entity = getEntityById(id);
-        entity.setLastName(employee.getLastName());
-        entity.setFirstName(employee.getFirstName());
-        PanacheEntityBase.persist(entity);
+        entity.lastName = employee.getLastName();
+        entity.firstName = employee.getFirstName();
+        DepartmentEntity.persist(entity);
         return EmployeeMapper.toDto(entity);
     }
 
@@ -66,10 +65,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     public EmployeeDto updateDepartment(long id, long deptId) {
         EmployeeEntity entity = getEntityById(id);
-        Optional<DepartmentEntity> department = PanacheEntityBase.findByIdOptional(deptId);
+        Optional<DepartmentEntity> department = DepartmentEntity.findByIdOptional(deptId);
         department.ifPresent(departmentEntity -> {
             entity.department = departmentEntity;
-            PanacheEntityBase.persist(entity);
+            DepartmentEntity.persist(entity);
         });
         return EmployeeMapper.toDto(entity);
     }
@@ -77,7 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public long deleteById(long id) {
-        boolean isEntityDeleted = PanacheEntityBase.deleteById(id);
+        boolean isEntityDeleted = DepartmentEntity.deleteById(id);
         if (!isEntityDeleted) {
             webApplicationException(id);
         }
@@ -85,7 +84,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private EmployeeEntity getEntityById(long id) {
-        Optional<EmployeeEntity> optional = PanacheEntityBase.findByIdOptional(id);
+        Optional<EmployeeEntity> optional = DepartmentEntity.findByIdOptional(id);
         if (optional.isEmpty()) {
             webApplicationException(id);
         }
