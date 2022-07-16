@@ -8,7 +8,7 @@ public interface EmployeeService {
 
     EmployeeDto getById(long id);
 
-    List<EmployeeDto> getByDepartmentId(long deptId);
+    List<EmployeeDto> getByDepartmentId(long departmentId);
 
     List<EmployeeDto> getByName(String name);
 
@@ -18,7 +18,7 @@ public interface EmployeeService {
 
     EmployeeDto update(long id, EmployeeDto employee);
 
-    EmployeeDto updateDepartment(long empId, long deptId);
+    EmployeeDto updateDepartment(long id, long departmentId);
 
     long deleteById(long id);
 }

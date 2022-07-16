@@ -79,7 +79,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public long deleteById(long id) {
         boolean isEntityDeleted = PanacheEntityBase.deleteById(id);
         if (!isEntityDeleted) {
-            throw new WebApplicationException("Employee with id of " + id + " does not exist.", 404);
+            webApplicationException(id);
         }
         return id;
     }
@@ -95,5 +95,4 @@ public class EmployeeServiceImpl implements EmployeeService {
     private void webApplicationException(long id) {
         throw new WebApplicationException("Employee with id of " + id + " does not exist.", 404);
     }
-
 }

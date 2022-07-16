@@ -5,11 +5,10 @@ import com.bsmm.quarkus.domain.dto.DepartmentDto;
 import com.bsmm.quarkus.domain.entity.DepartmentEntity;
 import com.bsmm.quarkus.service.DepartmentService;
 import com.bsmm.quarkus.util.DepartmentMapper;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.inject.Singleton;
-import javax.persistence.PersistenceException;
 import javax.transaction.Transactional;
-import javax.ws.rs.NotFoundException;
 import javax.ws.rs.WebApplicationException;
 import java.util.List;
 import java.util.Optional;
@@ -23,35 +22,37 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public List<DepartmentDto> getAll() {
-        return DepartmentMapper.toDtos(DepartmentEntity.listAll());
+        return DepartmentMapper.toDtos(PanacheEntityBase.listAll());
     }
 
     @Override
     @Transactional
     public DepartmentDto create(DepartmentDto department) {
         DepartmentEntity entity = DepartmentMapper.toEntity(department);
-        DepartmentEntity.persist(entity);
-
-        if (entity.isPersistent()) {
-            Optional<DepartmentEntity> optionalDept = DepartmentEntity.findByIdOptional(entity.id);
-            entity = optionalDept.orElseThrow(NotFoundException::new);
-            return DepartmentMapper.toDto(entity);
-        } else {
-            throw new PersistenceException();
-        }
+        PanacheEntityBase.persist(entity);
+        return DepartmentMapper.toDto(entity);
     }
 
     @Override
+    @Transactional
+    public DepartmentDto update(long id, DepartmentDto department) {
+        DepartmentEntity entity = getEntityById(id);
+        entity.setName(department.getName());
+        PanacheEntityBase.persist(entity);
+        return DepartmentMapper.toDto(entity);
+    }
+
+    @Override
+    @Transactional
     public long deleteById(long id) {
-        boolean isEntityDeleted = DepartmentEntity.deleteById(id);
-        if (!isEntityDeleted) {
+        if (!PanacheEntityBase.deleteById(id)) {
             webApplicationException(id);
         }
         return id;
     }
 
     private DepartmentEntity getEntityById(long id) {
-        Optional<DepartmentEntity> optional = DepartmentEntity.findByIdOptional(id);
+        Optional<DepartmentEntity> optional = PanacheEntityBase.findByIdOptional(id);
         if (optional.isEmpty()) {
             webApplicationException(id);
         }

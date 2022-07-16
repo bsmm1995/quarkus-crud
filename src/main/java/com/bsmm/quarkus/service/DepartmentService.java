@@ -11,5 +11,7 @@ public interface DepartmentService {
 
     DepartmentDto create(DepartmentDto department);
 
+    DepartmentDto update(long id, DepartmentDto department);
+
     long deleteById(long id);
 }
